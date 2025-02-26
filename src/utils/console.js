@@ -44,16 +44,14 @@ export function createConsole() {
             consoleContainer.style.height = "0px";
             consoleContainer.style.overflow = "hidden";
             toggleButton.textContent = "Show Console";
-            toggleButton.style.bottom = "10px";
-            toggleButton.style.right = "10px";
+            
             toggleButton.style.position = "fixed";
         } else {
             consoleContainer.style.display = "flex"; // Restore flex layout
             consoleContainer.style.height = "200px"; // Ensure correct height
             consoleContainer.style.overflowY = "auto";
             toggleButton.textContent = "Hide Console";
-            toggleButton.style.top = "5px";
-            toggleButton.style.right = "10px";
+            
         }
     });
 
