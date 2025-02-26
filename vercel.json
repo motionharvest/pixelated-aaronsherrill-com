@@ -1,6 +1,9 @@
 {
   "version": 2,
   "routes": [
-    { "src": "/(.*)", "dest": "/index.html" }
+    { "src": "/(.*)", "dest": "/index.html", "continue": true }
+  ],
+  "headers": [
+    { "source": "/static/(.*)", "headers": [{ "key": "Cache-Control", "value": "max-age=31536000" }] }
   ]
 }
