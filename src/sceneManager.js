@@ -28,6 +28,13 @@ export function initScene() {
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     renderer = new THREE.WebGLRenderer();
     
+    //
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // White light, intensity 1
+    directionalLight.position.set(0, -5, -5); // Move light to (x=0, y=-5, z=-5)
+    scene.add(directionalLight);
+    
+    const ambientLight = new THREE.AmbientLight(0x404040, 1); // Soft ambient light
+    scene.add(ambientLight);
     // Listen for window resize
     window.addEventListener("resize", () => resizeThreeCanvas(renderer, camera));
 
@@ -81,5 +88,6 @@ function clearScene() {
     currentSceneObjects.clear();
     let contentContainer = document.getElementById("content-container");
     contentContainer.innerHTML = "";
+    contentContainer.style.cssText = "";
    // contentContainer.style = {};
 }
