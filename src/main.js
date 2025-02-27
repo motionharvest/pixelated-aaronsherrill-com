@@ -5,7 +5,7 @@ import { initScene } from "./sceneManager.js";
 
 
 // Initialize the console on page load
-createConsole();
+createConsole(true);
 // Initialize the scene and router
 initScene();
 setupRouter();

@@ -1,6 +1,7 @@
 html, body {
 margin: 0;
 padding: 0;
+background-color: black;
 }
 
 body {
@@ -11,9 +12,11 @@ body {
   bottom: 35px;
   left: 50px;
 }
-#canvas-container {
+#canvas {
   position: fixed;
   z-index: -1;
+  width: 100%;
+  height: calc(var(--vh) * 100);
 }
 #content-container {
   color: white;

@@ -1,4 +1,4 @@
-export function createConsole() {
+export function createConsole(startMinimized = false) {
     const consoleContainer = document.createElement("div");
     consoleContainer.id = "custom-console";
     consoleContainer.style.position = "fixed";
@@ -37,9 +37,9 @@ export function createConsole() {
     document.body.appendChild(toggleButton);
 
     let isMinimized = false;
-
-    toggleButton.addEventListener("click", () => {
-        isMinimized = !isMinimized;
+    
+    function toggleMinimized() {
+      isMinimized = !isMinimized;
         if (isMinimized) {
             consoleContainer.style.height = "0px";
             consoleContainer.style.overflow = "hidden";
@@ -53,8 +53,13 @@ export function createConsole() {
             toggleButton.textContent = "Hide Console";
             
         }
-    });
+    } 
 
+    toggleButton.addEventListener("click", toggleMinimized);
+    
+    if(startMinimized) {
+      toggleMinimized();
+    }
     const originalLog = console.log;
     const originalWarn = console.warn;
     const originalError = console.error;
