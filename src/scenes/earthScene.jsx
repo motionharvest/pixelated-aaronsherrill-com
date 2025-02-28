@@ -24,7 +24,7 @@ export function createEarthScene(scene, camera, currentSceneObjects) {
     thescene = scene;
     let container = document.getElementById("content-container");
     styles = jssLite({
-      ".content-container" : {
+      "#content-container" : {
         "font-family": "Arial",
         "padding-left": "1em",
         height: "500vh"
