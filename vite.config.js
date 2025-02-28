@@ -11,4 +11,9 @@ export default defineConfig({
   },
   logLevel: 'info', // Show only errors (set to 'info' or 'debug' for more details)
   clearScreen: false,
+  // support for JSX 
+  esbuild: {
+    jsxFactory: 'h',
+    jsxFragment: 'Fragment'
+  }
 });

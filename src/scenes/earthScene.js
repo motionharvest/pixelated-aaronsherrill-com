@@ -3,6 +3,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { navigateTo } from "../router.js";
+import { Reusable } from "../components/Reusable.jsx"
 gsap.registerPlugin(ScrollTrigger);
 
 let camera;
@@ -28,6 +29,8 @@ export function createEarthScene(scene, camera, currentSceneObjects) {
     `;
     container.style.height = "500vh";
     
+    container.append(Reusable);
+    
     gsap.from("#title", {
       y: "-=50px",
       opacity: 0,
@@ -49,6 +52,9 @@ export function createEarthScene(scene, camera, currentSceneObjects) {
     let tl = gsap.timeline({
       onComplete: function() {
           navigateTo("/cube");
+        },
+        onReverseComplete: function() {
+          console.log("back at start.")
         },
         scrollTrigger: {
             trigger: container,
