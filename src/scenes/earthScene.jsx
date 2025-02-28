@@ -3,8 +3,6 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { navigateTo } from "../router.js";
-import { h } from "../pragma";
-import jssLite from "../utils/jss-lite"
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,11 +29,11 @@ export function createEarthScene(scene, camera, currentSceneObjects) {
       }
     })
     container.append(
-      <div>
+      <>
         <h1 id="title">Pixelated :O</h1>
         <p id="description">A series of scrollable envrionments developed entirely on a Google Pixel 6 Pro.</p>
         <p id="scroll-prompt">Scroll to begin</p>
-      </div>
+      </>
     );
     
     styles.add({

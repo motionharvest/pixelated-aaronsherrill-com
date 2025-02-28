@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import path from 'path';
 
 export default defineConfig({
   server: {
@@ -11,9 +12,17 @@ export default defineConfig({
   },
   logLevel: 'info', // Show only errors (set to 'info' or 'debug' for more details)
   clearScreen: false,
+  resolve: {
+    alias: {
+      // Define an alias for your project root
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
   // support for JSX 
   esbuild: {
     jsxFactory: 'h',
-    jsxFragment: 'Fragment'
+    jsxFragment: 'Fragment',
+    jsxInject: `import { h, Fragment } from '@/pragma.js';
+    import jssLite from "@/utils/jss-lite";`
   }
 });

@@ -1,6 +1,4 @@
 import * as THREE from "three";
-import {h} from "../pragma";
-import jssLite from "../utils/jss-lite";
 
 let style;
 
