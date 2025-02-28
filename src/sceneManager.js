@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { transitionOut, transitionIn } from "./utils/transitions.js";
 import { createCubeScene, destroyCubeScene } from "./scenes/cubeScene.js";
-import { createSphereScene, destroySphereScene } from "./scenes/sphereScene.js";
+import { createSphereScene, destroySphereScene } from "./scenes/sphereScene.jsx";
 import { createEarthScene, destroyEarthScene } from "./scenes/earthScene.js";
 
 const routes = {
