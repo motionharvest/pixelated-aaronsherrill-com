@@ -1,53 +1,60 @@
 class JSSLite {
   constructor() {
-    if (JSSLite.instance) {
-      return JSSLite.instance;
-    }
-
     this.styleTag = document.createElement('style');
     document.head.appendChild(this.styleTag);
-    
-    JSSLite.instance = this;
+    this.styles = {}; // Stores all styles
   }
 
   /**
-   * Converts a JavaScript style object to a CSS string.
+   * Converts a JavaScript object into a valid CSS rule string.
    */
   static toCSS(selector, style) {
+    if (selector.startsWith('@media')) {
+      return `${selector} { ${Object.entries(style)
+        .map(([innerSelector, innerStyles]) => JSSLite.toCSS(innerSelector, innerStyles))
+        .join(' ')} }`;
+    }
+
     const rules = Object.entries(style)
-      .map(([prop, value]) => `${JSSLite.camelToKebab(prop)}: ${value};`)
+      .map(([prop, value]) => `${prop}: ${value};`)
       .join(' ');
     return `${selector} { ${rules} }`;
   }
 
   /**
-   * Converts camelCase properties to kebab-case for CSS.
+   * Adds new styles and updates the stylesheet.
    */
-  static camelToKebab(str) {
-    return str.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
+  add(newStyles) {
+    Object.assign(this.styles, newStyles); // Merge styles
+    this.inject();
   }
 
   /**
-   * Injects a scoped style block and returns a removal function.
+   * Injects the updated styles into the document.
    */
-  create(styles) {
-    const styleTag = document.createElement('style');
-    document.head.appendChild(styleTag);
-
-    const cssContent = Object.entries(styles)
+  inject() {
+    const cssContent = Object.entries(this.styles)
       .map(([selector, style]) => JSSLite.toCSS(selector, style))
       .join('\n');
 
-    styleTag.textContent = cssContent;
+    this.styleTag.textContent = cssContent;
+  }
 
-    return {
-      remove: () => styleTag.remove()
-    };
+  /**
+   * Removes all injected styles.
+   */
+  remove() {
+    this.styleTag.textContent = ''; // Clears styles instead of removing the tag
+    this.styles = {};
   }
 }
 
-// Create a singleton instance that works as a function
-const jssLite = (styles) => new JSSLite().create(styles);
+// Create a function wrapper that initializes JSSLite
+const jssLite = (styles) => {
+  const instance = new JSSLite();
+  instance.add(styles); // Initialize with styles
+  return instance;
+};
 
 // Export the function-like singleton
 export default jssLite;

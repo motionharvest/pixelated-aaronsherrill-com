@@ -14,13 +14,14 @@ export function createSphereScene(scene, camera, currentSceneObjects) {
   let container = document.getElementById("content-container");
     container.innerHTML = "Sphere";
     
-    const reusable = (<h2 className="pink">About that</h2>);
-    container.append(reusable);
+    const fragment = (<h2 className="pink">About that</h2>);
+    container.append(fragment);
     
     // this isnt eorking
     style = jssLite({
       ".pink" : {
-        color: "pink"
+        color: "pink",
+        border: "solid 1px orange"
       }
     })
   

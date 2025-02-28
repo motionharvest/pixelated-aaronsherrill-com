@@ -1,6 +1,12 @@
 import { h } from "../pragma";
-import "./Reusable.css";
+import jssLite from "../utils/jss-lite";
 
 export const Reusable = (
-  <div className="booger">Hello World!</div>
+  <div class="booger">Hello World!</div>
 )
+
+jssLite({
+  ".booger" {
+    color: "salmon"
+  }
+})

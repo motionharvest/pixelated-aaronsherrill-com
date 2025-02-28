@@ -1,12 +1,28 @@
+export const Fragment = Symbol("Fragment"); // Unique identifier for fragments
+
 export const h = (tag, props, ...children) => {
-  // If tag is a component (function), call it
+  // Handle JSX Fragments
+  if (tag === Fragment) {
+    const fragment = document.createDocumentFragment();
+    children.forEach(child => {
+      if (Array.isArray(child)) {
+        child.forEach(nestedChild => fragment.append(nestedChild)); // Flatten children
+      } else {
+        fragment.append(child);
+      }
+    });
+    return fragment;
+  }
+
+  // If tag is a function, treat it as a component
   if (typeof tag === 'function') {
     return tag({ ...props }, children);
   }
 
-  // Create HTML element with given attributes
+  // Create a standard HTML element
   const el = document.createElement(tag);
-  
+
+  // Set attributes
   if (props) {
     Object.entries(props).forEach(([key, val]) => {
       if (key === 'className') {
@@ -17,9 +33,13 @@ export const h = (tag, props, ...children) => {
     });
   }
 
-  // Append child elements into the parent
-  children.forEach((child) => {
-    el.append(child);
+  // Append child elements
+  children.forEach(child => {
+    if (Array.isArray(child)) {
+      child.forEach(nestedChild => el.append(nestedChild)); // Flatten children
+    } else {
+      el.append(child);
+    }
   });
 
   return el;
