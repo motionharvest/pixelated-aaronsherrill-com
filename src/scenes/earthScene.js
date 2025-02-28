@@ -3,7 +3,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { navigateTo } from "../router.js";
-import { Reusable } from "../components/Reusable.jsx"
+
 gsap.registerPlugin(ScrollTrigger);
 
 let camera;
@@ -28,8 +28,6 @@ export function createEarthScene(scene, camera, currentSceneObjects) {
     <p id="scroll-prompt">Scroll to begin</p>
     `;
     container.style.height = "500vh";
-    
-    container.append(Reusable);
     
     gsap.from("#title", {
       y: "-=50px",
