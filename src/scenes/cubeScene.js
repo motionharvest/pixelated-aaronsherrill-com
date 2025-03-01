@@ -11,7 +11,7 @@ export function destroyCubeScene(onComplete) {
   })
 }
 export function createCubeScene(camera, currentSceneObjects) {
-  
+  camera.position.z = 5;
   let container = document.getElementById("content-container");
     container.innerHTML = "Cube";
     

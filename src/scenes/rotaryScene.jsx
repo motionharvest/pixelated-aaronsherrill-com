@@ -14,6 +14,8 @@ let tl;
 
 export function destroyRotaryScene(onComplete) {
   styles.remove();
+  tl.kill()
+  ScrollTrigger.killAll();
   onComplete();
 }
 export function createRotaryScene(camera, currentSceneObjects) {
@@ -45,12 +47,11 @@ export function createRotaryScene(camera, currentSceneObjects) {
     
     
     tl = gsap.timeline({
+      ease: "linear",
       onComplete: function() {
-        console.log("Rotary Scroll Complete");
-          navigateTo("/cube");
+        navigateTo("/cube")
         },
         onReverseComplete: function() {
-          console.log("back at start.")
         },
         scrollTrigger: {
             trigger: container,

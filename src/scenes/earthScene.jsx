@@ -10,9 +10,12 @@ let camera;
 let model;
 let thescene;
 let styles;
+let tl;
 
 export function destroyEarthScene(onComplete) {
   styles.remove()
+  tl.kill()
+  ScrollTrigger.killAll();
   onComplete();
 }
 export function createEarthScene(camera, currentSceneObjects) {
@@ -51,7 +54,7 @@ export function createEarthScene(camera, currentSceneObjects) {
       duration: .5
     })
     
-    let tl = gsap.timeline({
+    tl = gsap.timeline({
       onComplete: function() {
           navigateTo("/rotary");
         },

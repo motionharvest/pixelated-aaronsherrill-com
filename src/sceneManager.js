@@ -75,12 +75,12 @@ export function loadScene(route) {
   //let each scene decide how it transitions
   if(ghostRoute) {
     routes[ghostRoute].destroy(() => {
-      clearScene();
-      
-      if(routes.hasOwnProperty(route)) {
-        routes[route].create(camera, currentSceneObjects);
-        ghostRoute = route;
-      }
+      clearScene(()=>{
+        if(routes.hasOwnProperty(route)) {
+          routes[route].create(camera, currentSceneObjects);
+          ghostRoute = route;
+        }
+      });
     })
   } else {
     if(routes.hasOwnProperty(route)) {
@@ -91,10 +91,16 @@ export function loadScene(route) {
 }
 
 // Remove old objects
-function clearScene() {
+function clearScene(onComplete) {
     while (currentSceneObjects.children.length) {
       currentSceneObjects.remove(currentSceneObjects.children[0]);
     }
     contentContainer.innerHTML = "";
     contentContainer.style.cssText = "";
+    window.scrollTo(0,0);
+    
+    setTimeout(()=>{
+      onComplete()
+    }, 500)
+    
 }
