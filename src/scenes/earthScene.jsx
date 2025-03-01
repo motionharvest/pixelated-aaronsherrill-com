@@ -12,14 +12,10 @@ let thescene;
 let styles;
 
 export function destroyEarthScene(onComplete) {
-  if(model) {
-    thescene.remove(model);
-    model = undefined;
-  }
+  styles.remove()
   onComplete();
 }
-export function createEarthScene(scene, camera, currentSceneObjects) {
-    thescene = scene;
+export function createEarthScene(camera, currentSceneObjects) {
     let container = document.getElementById("content-container");
     styles = jssLite({
       "#content-container" : {
@@ -57,7 +53,7 @@ export function createEarthScene(scene, camera, currentSceneObjects) {
     
     let tl = gsap.timeline({
       onComplete: function() {
-          navigateTo("/cube");
+          navigateTo("/rotary");
         },
         onReverseComplete: function() {
           console.log("back at start.")
@@ -82,11 +78,13 @@ export function createEarthScene(scene, camera, currentSceneObjects) {
         model = gltf.scene;
         model.position.set(0,0,0);
         
-        scene.add(model);
+        currentSceneObjects.add(model);
         animate()
       }, undefined, (error) => {
        console.error("Error loading model", error);
       })
+    } else {
+      currentSceneObjects.add(model);
     }
     
     

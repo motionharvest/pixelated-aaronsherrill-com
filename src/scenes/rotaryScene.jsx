@@ -13,25 +13,13 @@ let styles;
 let tl;
 
 export function destroyRotaryScene(onComplete) {
-  
-  model = undefined;
   styles.remove();
-  // Kill all animations in the timeline
-    
-    if(tl) {
-      tl.kill();
-
-    // Kill any attached ScrollTrigger
-      if (tl.scrollTrigger) {
-        tl.scrollTrigger.kill();
-      }
-    }
-    requestAnimationFrame(()=>{ onComplete() });
+  onComplete();
 }
-export function createRotaryScene(scene, camera) {
-    thescene = scene;
+export function createRotaryScene(camera, currentSceneObjects) {
     camera.position.z = 5;
     camera.position.y = 0;
+    
     let container = document.getElementById("content-container");
     styles = jssLite({
       "#content-container" : {
@@ -56,10 +44,10 @@ export function createRotaryScene(scene, camera) {
     })
     
     
-    let tl = gsap.timeline({
+    tl = gsap.timeline({
       onComplete: function() {
         console.log("Rotary Scroll Complete");
-          //navigateTo("/cube");
+          navigateTo("/cube");
         },
         onReverseComplete: function() {
           console.log("back at start.")
@@ -78,18 +66,20 @@ export function createRotaryScene(scene, camera) {
     }, "zoom");
     
     
-    
+    if(!model) {
       const loader = new GLTFLoader();
       loader.load("/models/Rotary.glb", (gltf) => {
         model = gltf.scene;
         model.position.set(0,0,0);
         
-        scene.add(model);
+        currentSceneObjects.add(model);
         
       }, undefined, (error) => {
        console.error("Error loading model", error);
       })
-    
+    } else {
+      currentSceneObjects.add(model);
+    }
     
     
 }

@@ -4,14 +4,13 @@ import gsap from 'gsap';
 let material;
 
 export function destroyCubeScene(onComplete) {
-  console.log("called destroy cube scene")
   gsap.to(material, {
     opacity: 0,
     duration: .5,
     onComplete: onComplete
   })
 }
-export function createCubeScene(scene, camera, currentSceneObjects) {
+export function createCubeScene(camera, currentSceneObjects) {
   
   let container = document.getElementById("content-container");
     container.innerHTML = "Cube";
@@ -22,7 +21,6 @@ export function createCubeScene(scene, camera, currentSceneObjects) {
     
     camera.lookAt(cube.position);
     
-    scene.add(cube);
     currentSceneObjects.add(cube);
     
     gsap.from(material, {

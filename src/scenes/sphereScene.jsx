@@ -8,14 +8,13 @@ export function destroySphereScene(onComplete) {
   style.remove();
 }
 
-export function createSphereScene(scene, camera, currentSceneObjects) {
+export function createSphereScene(camera, currentSceneObjects) {
   let container = document.getElementById("content-container");
     container.innerHTML = "Sphere";
     
     const fragment = (<h2 className="pink">About that</h2>);
     container.append(fragment);
     
-    // this isnt eorking
     style = jssLite({
       ".pink" : {
         color: "pink",
@@ -27,6 +26,5 @@ export function createSphereScene(scene, camera, currentSceneObjects) {
     const material = new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true });
     const sphere = new THREE.Mesh(geometry, material);
     
-    scene.add(sphere);
     currentSceneObjects.add(sphere);
 }

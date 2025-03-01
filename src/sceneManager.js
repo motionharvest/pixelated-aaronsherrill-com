@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import { transitionOut, transitionIn } from "./utils/transitions.js";
 import { createCubeScene, destroyCubeScene } from "./scenes/cubeScene.js";
 import { createSphereScene, destroySphereScene } from "./scenes/sphereScene.jsx";
 import { createEarthScene, destroyEarthScene } from "./scenes/earthScene.jsx";
@@ -25,14 +24,20 @@ const routes = {
     }
 }
 let scene, camera, renderer;
-let currentSceneObjects = new Set();
+let currentSceneObjects;
+let contentContainer;
 
 export function initScene() {
+    contentContainer = document.getElementById("content-container");
+    
     // Set up Three.js renderer
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const canvas = document.getElementById("canvas");
     renderer = new THREE.WebGLRenderer({canvas});
+    //
+    currentSceneObjects = new THREE.Group();
+    scene.add(currentSceneObjects);
     
     //
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // White light, intensity 1
@@ -41,6 +46,7 @@ export function initScene() {
     
     const ambientLight = new THREE.AmbientLight(0x404040, 1); // Soft ambient light
     scene.add(ambientLight);
+    
     // Listen for window resize
     window.addEventListener("resize", () => resizeThreeCanvas(renderer, camera));
     
@@ -72,13 +78,13 @@ export function loadScene(route) {
       clearScene();
       
       if(routes.hasOwnProperty(route)) {
-        routes[route].create(scene, camera, currentSceneObjects);
+        routes[route].create(camera, currentSceneObjects);
         ghostRoute = route;
       }
     })
   } else {
     if(routes.hasOwnProperty(route)) {
-      routes[route].create(scene, camera, currentSceneObjects)  
+      routes[route].create(camera, currentSceneObjects)  
       ghostRoute = route;
     }
   }
@@ -86,9 +92,9 @@ export function loadScene(route) {
 
 // Remove old objects
 function clearScene() {
-    currentSceneObjects.forEach(obj => scene.remove(obj));
-    currentSceneObjects.clear();
-    let contentContainer = document.getElementById("content-container");
+    while (currentSceneObjects.children.length) {
+      currentSceneObjects.remove(currentSceneObjects.children[0]);
+    }
     contentContainer.innerHTML = "";
     contentContainer.style.cssText = "";
 }
