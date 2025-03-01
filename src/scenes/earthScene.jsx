@@ -30,15 +30,14 @@ export function createEarthScene(scene, camera, currentSceneObjects) {
     })
     container.append(
       <>
-        <h1 id="title">Pixelated :O</h1>
+        <h1 id="title">Pixelated</h1>
         <p id="description">A series of scrollable envrionments developed entirely on a Google Pixel 6 Pro.</p>
-        <p id="scroll-prompt">Scroll to begin</p>
       </>
     );
     
     styles.add({
       "#title": {
-        color: "red"
+        color: "orange"
       }
     })
     
@@ -54,12 +53,6 @@ export function createEarthScene(scene, camera, currentSceneObjects) {
       delay: .5,
       opacity: 0,
       duration: .5
-    })
-    
-    gsap.from("#scroll-prompt", {
-      delay: 4,
-      opacity: 0,
-      left: "-= 50px"
     })
     
     let tl = gsap.timeline({

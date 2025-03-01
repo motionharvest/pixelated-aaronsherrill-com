@@ -3,6 +3,7 @@ import { transitionOut, transitionIn } from "./utils/transitions.js";
 import { createCubeScene, destroyCubeScene } from "./scenes/cubeScene.js";
 import { createSphereScene, destroySphereScene } from "./scenes/sphereScene.jsx";
 import { createEarthScene, destroyEarthScene } from "./scenes/earthScene.jsx";
+import { createRotaryScene, destroyRotaryScene } from "./scenes/rotaryScene.jsx";
 
 const routes = {
     "/": {
@@ -17,6 +18,10 @@ const routes = {
     "/sphere": {
       create: createSphereScene,
       destroy: destroySphereScene
+    },
+    "/rotary": {
+      create: createRotaryScene,
+      destroy: destroyRotaryScene
     }
 }
 let scene, camera, renderer;
