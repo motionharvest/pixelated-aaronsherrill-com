@@ -19,6 +19,9 @@ export function destroyEarthScene(onComplete) {
   onComplete();
 }
 export function createEarthScene(camera, currentSceneObjects) {
+    camera.position.z = 5;
+    camera.position.y = 0;
+    
     let container = document.getElementById("content-container");
     styles = jssLite({
       "#content-container" : {
