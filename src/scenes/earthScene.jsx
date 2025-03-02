@@ -39,7 +39,7 @@ export function createEarthScene(camera, currentSceneObjects) {
     
     styles.add({
       "#title": {
-        color: "orange"
+        
       }
     })
     

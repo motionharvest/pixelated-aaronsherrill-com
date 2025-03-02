@@ -3,6 +3,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { navigateTo } from "../router.js";
+import AssetPreloader from '@motionharvest/asset-preloader';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,6 +20,7 @@ export function destroyRotaryScene(onComplete) {
   onComplete();
 }
 export function createRotaryScene(camera, currentSceneObjects) {
+    
     camera.position.z = 5;
     camera.position.y = 0;
     
@@ -68,19 +70,25 @@ export function createRotaryScene(camera, currentSceneObjects) {
     
     
     if(!model) {
-      const loader = new GLTFLoader();
-      loader.load("/models/Rotary.glb", (gltf) => {
-        model = gltf.scene;
-        model.position.set(0,0,0);
+      const preloader = new AssetPreloader(true);
+      preloader.loadAssets([
+         "/models/Rotary.glb"
+      ]);
+      preloader.addEventListener('complete', () => {
+  
+        const loader = new GLTFLoader();
+        loader.load(preloader.getAsset("/models/Rotary.glb"), (gltf) => {
+          model = gltf.scene;
+          model.position.set(0,0,0);
         
-        currentSceneObjects.add(model);
-        
-      }, undefined, (error) => {
+          currentSceneObjects.add(model);
+        }, undefined, (error) => {
        console.error("Error loading model", error);
-      })
+        })
+      });
     } else {
       currentSceneObjects.add(model);
     }
     
-    
+
 }
