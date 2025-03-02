@@ -1,7 +1,7 @@
 // Setup a console
 import { createConsole } from "./utils/console.js";
 import { navigateTo, setupRouter } from "./router.js";
-import { initScene } from "./sceneManager.js";
+import { initScene } from "./sceneManagerAlt.js";
 
 
 // Initialize the console on page load

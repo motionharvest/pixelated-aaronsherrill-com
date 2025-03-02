@@ -12,6 +12,7 @@
     "vite": "^6.2.0"
   },
   "dependencies": {
+    "@motionharvest/asset-preloader": "^1.0.4",
     "gsap": "^3.12.7",
     "three": "^0.173.0"
   }
